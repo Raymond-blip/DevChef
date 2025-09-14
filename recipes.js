@@ -1266,7 +1266,316 @@ const recipes = [
             "🐛 If flavors clash, adjust seasoning hash function",
             "⚡ Serve immediately for optimal performance"
         ],
-        energy_effects: "Balanced macros for sustained coding energy, omega-3s enhance problem-solving abilities, complex carbs fuel algorithm thinking, protein supports long debugging sessions"
+        energy_effects: "Balanced macros for sustained coding energy, omega-3s enhance problem-solving abilities, complex carbs fuel algorithm thinking, protein supports long debugging sessions"                                                             
+    },
+
+    // Italian Cuisine
+    {
+        id: 'spaghetti-carbonara',
+        title: 'Classic Spaghetti Carbonara',
+        description: 'Creamy Italian pasta with eggs, cheese, and pancetta',
+        complexity: 'medium',
+        runtime: '20 min',
+        servings: 4,
+        ingredients: {
+            'spaghetti': '400g',
+            'pancetta': '200g diced',
+            'eggs': '4 large',
+            'pecorino_romano': '100g grated',
+            'black_pepper': '1 tsp',
+            'garlic': '2 cloves minced',
+            'olive_oil': '2 tbsp'
+        },
+        instructions: [
+            { title: 'Cook Pasta', content: 'Boil spaghetti in salted water until al dente, about 8-10 minutes' },
+            { title: 'Prepare Sauce', content: 'Whisk eggs with grated cheese and black pepper in a bowl' },
+            { title: 'Cook Pancetta', content: 'Fry pancetta in olive oil until crispy, add garlic' },
+            { title: 'Combine', content: 'Mix hot pasta with pancetta, then quickly stir in egg mixture off heat' }
+        ],
+        tips: ['Keep pasta water hot', 'Work quickly to prevent scrambled eggs', 'Use authentic pecorino cheese'],
+        image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=800&h=600&fit=crop',
+        imageAlt: 'Creamy spaghetti carbonara with pancetta and cheese',
+        nutrition: { calories: 520, protein: 28, carbs: 45, fat: 24 }
+    },
+    {
+        id: 'margherita-pizza',
+        title: 'Authentic Margherita Pizza',
+        description: 'Classic Neapolitan pizza with fresh mozzarella, tomatoes, and basil',
+        complexity: 'medium',
+        runtime: '90 min',
+        servings: 4,
+        ingredients: {
+            'pizza_dough': '500g',
+            'san_marzano_tomatoes': '400g crushed',
+            'fresh_mozzarella': '250g sliced',
+            'fresh_basil': '20 leaves',
+            'olive_oil': '3 tbsp',
+            'salt': '1 tsp',
+            'garlic': '2 cloves minced'
+        },
+        instructions: [
+            { title: 'Prepare Dough', content: 'Let dough rise for 1 hour, then stretch into pizza shape' },
+            { title: 'Make Sauce', content: 'Mix crushed tomatoes with garlic, salt, and 1 tbsp olive oil' },
+            { title: 'Assemble', content: 'Spread sauce on dough, add mozzarella slices, drizzle with olive oil' },
+            { title: 'Bake', content: 'Bake at 500°F (260°C) for 8-12 minutes until crust is golden' }
+        ],
+        tips: ['Use a pizza stone for best results', 'Don\'t overload with toppings', 'Fresh basil goes on after baking'],
+        image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=800&h=600&fit=crop',
+        imageAlt: 'Fresh margherita pizza with mozzarella and basil',
+        nutrition: { calories: 380, protein: 18, carbs: 42, fat: 16 }
+    },
+
+    // Asian Cuisine
+    {
+        id: 'chicken-teriyaki',
+        title: 'Chicken Teriyaki',
+        description: 'Sweet and savory Japanese chicken with homemade teriyaki sauce',
+        complexity: 'easy',
+        runtime: '25 min',
+        servings: 4,
+        ingredients: {
+            'chicken_thighs': '6 pieces',
+            'soy_sauce': '60ml',
+            'mirin': '60ml',
+            'sake': '30ml',
+            'brown_sugar': '2 tbsp',
+            'ginger': '1 inch grated',
+            'garlic': '3 cloves minced',
+            'sesame_oil': '1 tbsp',
+            'green_onions': '3 stalks sliced'
+        },
+        instructions: [
+            { title: 'Make Sauce', content: 'Combine soy sauce, mirin, sake, sugar, ginger, and garlic in a bowl' },
+            { title: 'Cook Chicken', content: 'Pan-fry chicken thighs until golden brown, about 6 minutes per side' },
+            { title: 'Add Sauce', content: 'Pour teriyaki sauce over chicken and simmer for 5 minutes' },
+            { title: 'Garnish', content: 'Sprinkle with green onions and drizzle with sesame oil' }
+        ],
+        tips: ['Use chicken thighs for juicier results', 'Don\'t overcook the sauce', 'Serve with steamed rice'],
+        image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=800&h=600&fit=crop',
+        imageAlt: 'Glazed chicken teriyaki with sesame seeds',
+        nutrition: { calories: 320, protein: 35, carbs: 12, fat: 14 }
+    },
+    {
+        id: 'beef-ramen',
+        title: 'Beef Ramen Bowl',
+        description: 'Rich and flavorful Japanese ramen with tender beef and soft-boiled egg',
+        complexity: 'medium',
+        runtime: '30 min',
+        servings: 2,
+        ingredients: {
+            'ramen_noodles': '2 servings',
+            'beef_sirloin': '300g sliced thin',
+            'beef_broth': '1L',
+            'soy_sauce': '3 tbsp',
+            'miso_paste': '2 tbsp',
+            'garlic': '4 cloves minced',
+            'ginger': '2 inches sliced',
+            'eggs': '2 soft-boiled',
+            'green_onions': '4 stalks',
+            'nori_sheets': '2 pieces',
+            'sesame_oil': '1 tbsp'
+        },
+        instructions: [
+            { title: 'Prepare Broth', content: 'Simmer beef broth with soy sauce, miso, garlic, and ginger for 15 minutes' },
+            { title: 'Cook Noodles', content: 'Boil ramen noodles according to package directions' },
+            { title: 'Cook Beef', content: 'Quickly sear beef slices in a hot pan for 1-2 minutes' },
+            { title: 'Assemble', content: 'Place noodles in bowls, add broth, top with beef, egg, and garnishes' }
+        ],
+        tips: ['Slice beef very thin for quick cooking', 'Soft-boil eggs for 6-7 minutes', 'Use fresh ramen noodles'],
+        image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800&h=600&fit=crop',
+        imageAlt: 'Rich beef ramen bowl with soft-boiled egg',
+        nutrition: { calories: 580, protein: 42, carbs: 45, fat: 22 }
+    },
+
+    // Mexican Cuisine
+    {
+        id: 'chicken-tacos',
+        title: 'Spicy Chicken Tacos',
+        description: 'Flavorful Mexican tacos with seasoned chicken and fresh toppings',
+        complexity: 'easy',
+        runtime: '20 min',
+        servings: 4,
+        ingredients: {
+            'chicken_breast': '500g diced',
+            'taco_seasoning': '2 tbsp',
+            'corn_tortillas': '8 pieces',
+            'lime': '2 juiced',
+            'cilantro': '1/2 cup chopped',
+            'red_onion': '1 medium diced',
+            'avocado': '2 sliced',
+            'sour_cream': '1/2 cup',
+            'cheese': '100g shredded',
+            'jalapeños': '2 sliced'
+        },
+        instructions: [
+            { title: 'Season Chicken', content: 'Toss diced chicken with taco seasoning and lime juice' },
+            { title: 'Cook Chicken', content: 'Pan-fry chicken until cooked through, about 8-10 minutes' },
+            { title: 'Warm Tortillas', content: 'Heat tortillas in a dry pan for 30 seconds each side' },
+            { title: 'Assemble', content: 'Fill tortillas with chicken and top with all garnishes' }
+        ],
+        tips: ['Use fresh corn tortillas', 'Don\'t overfill the tacos', 'Serve with extra lime wedges'],
+        image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=800&h=600&fit=crop',
+        imageAlt: 'Colorful chicken tacos with fresh toppings',
+        nutrition: { calories: 380, protein: 32, carbs: 28, fat: 16 }
+    },
+
+    // American Cuisine
+    {
+        id: 'bbq-burger',
+        title: 'BBQ Bacon Burger',
+        description: 'Juicy beef burger with BBQ sauce, crispy bacon, and melted cheese',
+        complexity: 'easy',
+        runtime: '20 min',
+        servings: 4,
+        ingredients: {
+            'ground_beef': '600g',
+            'bacon': '8 strips',
+            'burger_buns': '4 pieces',
+            'cheese_slices': '4 pieces',
+            'bbq_sauce': '1/2 cup',
+            'onion': '1 large sliced',
+            'lettuce': '4 leaves',
+            'tomatoes': '2 sliced',
+            'pickles': '8 slices',
+            'salt_pepper': 'to taste'
+        },
+        instructions: [
+            { title: 'Cook Bacon', content: 'Fry bacon until crispy, about 5-6 minutes' },
+            { title: 'Form Patties', content: 'Shape ground beef into 4 equal patties, season with salt and pepper' },
+            { title: 'Grill Burgers', content: 'Cook patties for 4-5 minutes per side for medium' },
+            { title: 'Assemble', content: 'Build burgers with all toppings and BBQ sauce' }
+        ],
+        tips: ['Don\'t overwork the meat', 'Let patties rest before cooking', 'Toast the buns for better texture'],
+        image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=600&fit=crop',
+        imageAlt: 'Juicy BBQ bacon burger with melted cheese',
+        nutrition: { calories: 720, protein: 45, carbs: 35, fat: 42 }
+    },
+
+    // Indian Cuisine
+    {
+        id: 'butter-chicken',
+        title: 'Butter Chicken (Murgh Makhani)',
+        description: 'Rich and creamy Indian curry with tender chicken in tomato sauce',
+        complexity: 'medium',
+        runtime: '45 min',
+        servings: 4,
+        ingredients: {
+            'chicken_thighs': '800g cubed',
+            'yogurt': '200ml',
+            'garam_masala': '2 tbsp',
+            'ginger_garlic_paste': '2 tbsp',
+            'tomatoes': '400g pureed',
+            'heavy_cream': '200ml',
+            'butter': '60g',
+            'onion': '1 large diced',
+            'cashews': '50g',
+            'cilantro': '1/4 cup chopped'
+        },
+        instructions: [
+            { title: 'Marinate Chicken', content: 'Mix chicken with yogurt, half the garam masala, and ginger-garlic paste' },
+            { title: 'Cook Chicken', content: 'Grill or pan-fry marinated chicken until cooked through' },
+            { title: 'Make Sauce', content: 'Sauté onions, add tomatoes, cream, and remaining spices' },
+            { title: 'Combine', content: 'Add chicken to sauce and simmer for 10 minutes' }
+        ],
+        tips: ['Marinate chicken for at least 2 hours', 'Use full-fat cream for richness', 'Garnish with fresh cilantro'],
+        image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&h=600&fit=crop',
+        imageAlt: 'Creamy butter chicken curry with rice',
+        nutrition: { calories: 420, protein: 35, carbs: 12, fat: 26 }
+    },
+
+    // Mediterranean Cuisine
+    {
+        id: 'greek-salad',
+        title: 'Classic Greek Salad',
+        description: 'Fresh Mediterranean salad with tomatoes, cucumbers, olives, and feta cheese',
+        complexity: 'easy',
+        runtime: '15 min',
+        servings: 4,
+        ingredients: {
+            'tomatoes': '4 large diced',
+            'cucumber': '2 medium diced',
+            'red_onion': '1 medium sliced',
+            'kalamata_olives': '1/2 cup pitted',
+            'feta_cheese': '200g cubed',
+            'olive_oil': '1/4 cup',
+            'red_wine_vinegar': '2 tbsp',
+            'oregano': '1 tbsp dried',
+            'salt_pepper': 'to taste'
+        },
+        instructions: [
+            { title: 'Prepare Vegetables', content: 'Dice tomatoes and cucumber, slice red onion thinly' },
+            { title: 'Make Dressing', content: 'Whisk olive oil, vinegar, oregano, salt, and pepper' },
+            { title: 'Combine', content: 'Mix all vegetables with olives and feta cheese' },
+            { title: 'Dress', content: 'Drizzle with dressing and toss gently' }
+        ],
+        tips: ['Use ripe, juicy tomatoes', 'Don\'t overmix to keep feta intact', 'Serve immediately'],
+        image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=800&h=600&fit=crop',
+        imageAlt: 'Fresh Greek salad with feta cheese and olives',
+        nutrition: { calories: 280, protein: 12, carbs: 18, fat: 20 }
+    },
+
+    // Desserts
+    {
+        id: 'chocolate-cake',
+        title: 'Decadent Chocolate Cake',
+        description: 'Rich and moist chocolate cake with chocolate ganache frosting',
+        complexity: 'medium',
+        runtime: '60 min',
+        servings: 8,
+        ingredients: {
+            'flour': '200g',
+            'cocoa_powder': '80g',
+            'sugar': '300g',
+            'butter': '200g softened',
+            'eggs': '4 large',
+            'milk': '250ml',
+            'baking_powder': '2 tsp',
+            'vanilla_extract': '2 tsp',
+            'dark_chocolate': '200g for ganache',
+            'heavy_cream': '200ml for ganache'
+        },
+        instructions: [
+            { title: 'Mix Dry Ingredients', content: 'Sift flour, cocoa powder, and baking powder together' },
+            { title: 'Cream Butter', content: 'Beat butter and sugar until light and fluffy' },
+            { title: 'Add Wet Ingredients', content: 'Add eggs one at a time, then vanilla and milk' },
+            { title: 'Bake', content: 'Bake at 350°F (175°C) for 25-30 minutes' },
+            { title: 'Make Ganache', content: 'Heat cream and pour over chopped chocolate, stir until smooth' }
+        ],
+        tips: ['Don\'t overmix the batter', 'Let cake cool completely before frosting', 'Use high-quality cocoa powder'],
+        image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=600&fit=crop',
+        imageAlt: 'Rich chocolate cake with ganache frosting',
+        nutrition: { calories: 420, protein: 8, carbs: 52, fat: 22 }
+    },
+
+    // Breakfast
+    {
+        id: 'pancakes',
+        title: 'Fluffy Buttermilk Pancakes',
+        description: 'Light and airy pancakes perfect for weekend breakfast',
+        complexity: 'easy',
+        runtime: '20 min',
+        servings: 4,
+        ingredients: {
+            'flour': '200g',
+            'sugar': '2 tbsp',
+            'baking_powder': '2 tsp',
+            'baking_soda': '1/2 tsp',
+            'salt': '1/2 tsp',
+            'buttermilk': '300ml',
+            'eggs': '2 large',
+            'butter': '60g melted',
+            'vanilla_extract': '1 tsp'
+        },
+        instructions: [
+            { title: 'Mix Dry Ingredients', content: 'Whisk flour, sugar, baking powder, baking soda, and salt' },
+            { title: 'Mix Wet Ingredients', content: 'Beat eggs with buttermilk, melted butter, and vanilla' },
+            { title: 'Combine', content: 'Gently fold wet ingredients into dry ingredients' },
+            { title: 'Cook', content: 'Cook pancakes on griddle for 2-3 minutes per side' }
+        ],
+        tips: ['Don\'t overmix the batter', 'Let batter rest for 5 minutes', 'Cook on medium heat'],
+        image: 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=800&h=600&fit=crop',
+        imageAlt: 'Stack of fluffy buttermilk pancakes with syrup',
+        nutrition: { calories: 280, protein: 10, carbs: 38, fat: 10 }
     }
 ];
 
