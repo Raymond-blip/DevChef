@@ -61,7 +61,7 @@ body {
     height: 3px;
     background: linear-gradient(90deg, var(--accent), var(--success), var(--warning), var(--accent));
     background-size: 200% 100%;
-    animation: gradientFlow 3s ease infinite;
+    animation: gradientShift 3s ease infinite;
 }
 
 .search-container {
@@ -144,14 +144,29 @@ body {
 
 .generate-btn.loading {
     pointer-events: none;
+    background: linear-gradient(45deg, var(--text-secondary), var(--border));
+    cursor: not-allowed;
 }
 
 .generate-btn.loading .btn-text {
     opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .generate-btn.loading .btn-icon {
     animation: spin 1s linear infinite;
+    transform-origin: center;
+}
+
+.generate-btn.loading::after {
+    content: 'Generating...';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 @keyframes spin {
@@ -2453,7 +2468,7 @@ body {
     }
 }
 
-@keyframes slideInRight {
+@keyframes slideInFromRight {
     from {
         opacity: 0;
         transform: translateX(30px);
@@ -2518,7 +2533,7 @@ body {
 }
 
 .nav {
-    animation: slideInRight 0.8s ease-out;
+    animation: slideInFromRight 0.8s ease-out;
 }
 
 .logo {

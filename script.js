@@ -114,6 +114,15 @@ class DevChef {
                 this.showRecipe(recipeId);
             });
         });
+
+        // Add event listeners for favorite buttons on recipe cards
+        document.querySelectorAll('[data-action="toggle-favorite-card"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const recipeId = btn.dataset.recipeId;
+                this.toggleFavorite(recipeId);
+            });
+        });
     }
 
     getFilteredRecipes() {
@@ -138,7 +147,7 @@ class DevChef {
                     </div>
                     ${recipe.isCustom ? '<div class="custom-badge">AI Generated</div>' : ''}
                     ${window.userAuth && window.userAuth.getCurrentUser() ? `
-                        <button class="favorite-btn" onclick="event.stopPropagation(); window.devChef.toggleFavorite('${recipe.id || recipe.title.replace(/'/g, "\\'")}')">
+                        <button class="favorite-btn" data-recipe-id="${recipe.id || recipe.title}" data-action="toggle-favorite-card">
                             ${window.userAuth.isFavorite(recipe) ? '❤️' : '🤍'}
                         </button>
                     ` : ''}
@@ -183,6 +192,23 @@ class DevChef {
             });
         });
 
+        // Add event listeners for user action buttons
+        document.querySelectorAll('[data-action="mark-cooked"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const recipeId = e.target.closest('[data-recipe-id]').dataset.recipeId;
+                this.markRecipeAsCooked(recipeId);
+            });
+        });
+
+        document.querySelectorAll('[data-action="toggle-favorite"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const recipeId = e.target.closest('[data-recipe-id]').dataset.recipeId;
+                this.toggleFavorite(recipeId);
+            });
+        });
+
         // Add easter egg interactions
         this.addRecipeEasterEggs(recipe);
     }
@@ -199,19 +225,45 @@ class DevChef {
                 </div>
             `).join('');
 
-        const instructions = recipe.instructions
-            .map((instruction, index) => `
-                <div class="instruction">
-                    <div class="instruction-number">${index + 1}</div>
-                    <div class="instruction-content">
-                        <div class="instruction-title">${instruction.title}</div>
-                        <div class="instruction-text">${instruction.content}</div>
-                    </div>
-                </div>
-            `).join('');
+        const instructions = (recipe.instructions || [])
+            .map((instruction, index) => {
+                // Handle both object format and string array format
+                if (typeof instruction === 'string') {
+                    return `
+                        <div class="instruction">
+                            <div class="instruction-number">${index + 1}</div>
+                            <div class="instruction-content">
+                                <div class="instruction-title">Step ${index + 1}</div>
+                                <div class="instruction-text">${instruction}</div>
+                            </div>
+                        </div>
+                    `;
+                } else if (instruction && instruction.title && instruction.content) {
+                    return `
+                        <div class="instruction">
+                            <div class="instruction-number">${index + 1}</div>
+                            <div class="instruction-content">
+                                <div class="instruction-title">${instruction.title}</div>
+                                <div class="instruction-text">${instruction.content}</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Fallback for any other format
+                    return `
+                        <div class="instruction">
+                            <div class="instruction-number">${index + 1}</div>
+                            <div class="instruction-content">
+                                <div class="instruction-title">Step ${index + 1}</div>
+                                <div class="instruction-text">${instruction?.toString() || 'No instruction provided'}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
 
-        const tips = recipe.tips
-            .map(tip => `<div class="tip">${tip}</div>`)
+        const tips = (recipe.tips || [])
+            .map(tip => `<div class="tip">${tip?.toString() || 'No tip provided'}</div>`)
             .join('');
 
         const nutritionInfo = recipe.nutrition ? `
@@ -332,11 +384,11 @@ class DevChef {
                 <div class="user-actions-section">
                     <h3 class="section-title">👨‍💻 Your Progress</h3>
                     <div class="user-action-buttons">
-                        <button class="cooked-btn" onclick="window.devChef.markRecipeAsCooked(${JSON.stringify(recipe).replace(/"/g, '&quot;')})">
+                        <button class="cooked-btn" data-recipe-id="${recipe.id || recipe.title}" data-action="mark-cooked">
                             <span>🍳 Mark as Cooked</span>
                         </button>
                         <button class="favorite-btn-large ${window.userAuth.isFavorite(recipe) ? 'favorited' : ''}" 
-                                onclick="window.devChef.toggleFavorite('${recipe.id || recipe.title.replace(/'/g, "\\'")}')">
+                                data-recipe-id="${recipe.id || recipe.title}" data-action="toggle-favorite">
                             <span>${window.userAuth.isFavorite(recipe) ? '❤️ Remove from Favorites' : '🤍 Add to Favorites'}</span>
                         </button>
                     </div>
@@ -719,7 +771,9 @@ class DevChef {
     toggleFavorite(recipeId) {
         if (!window.userAuth || !window.userAuth.getCurrentUser()) {
             alert('🔐 Please sign in to save favorite recipes!');
-            window.userAuth.showLogin();
+            if (window.userAuth) {
+                window.userAuth.showLogin();
+            }
             return;
         }
 
@@ -737,17 +791,39 @@ class DevChef {
             : `💔 Removed "${recipe.title}" from favorites`;
         
         this.showToast(message);
+        
+        // Refresh the recipe detail view if it's currently open
+        const modal = document.getElementById('recipeModal');
+        if (modal && modal.style.display === 'block') {
+            setTimeout(() => {
+                this.showRecipe(recipe.id || recipe.title);
+            }, 500);
+        }
     }
 
-    markRecipeAsCooked(recipe) {
+    markRecipeAsCooked(recipeId) {
         if (!window.userAuth || !window.userAuth.getCurrentUser()) {
             alert('🔐 Please sign in to track your cooking progress!');
-            window.userAuth.showLogin();
+            if (window.userAuth) {
+                window.userAuth.showLogin();
+            }
+            return;
+        }
+
+        // Find the recipe by ID or title
+        const recipe = this.recipes.find(r => (r.id || r.title) === recipeId);
+        if (!recipe) {
+            this.showToast('❌ Recipe not found!');
             return;
         }
 
         window.userAuth.trackRecipeCooked(recipe);
         this.showToast(`🍳 Great job! You've cooked "${recipe.title}". Check your dashboard for updated stats!`);
+        
+        // Refresh the recipe detail view to update button states
+        setTimeout(() => {
+            this.showRecipe(recipe.id || recipe.title);
+        }, 1000);
     }
 
     showToast(message) {
@@ -853,42 +929,68 @@ class DevChef {
     async generateCustomRecipe() {
         const searchInput = document.getElementById('recipeSearch');
         const generateBtn = document.getElementById('generateRecipe');
-        const dietaryRestriction = document.getElementById('dietaryRestriction').value;
-        const complexityLevel = document.getElementById('complexityLevel').value;
-        const servingSize = parseInt(document.getElementById('servingSize').value);
-
-        const query = searchInput.value.trim();
-        if (!query) {
-            alert('Please enter a food description!');
+        
+        // Check if elements exist
+        if (!searchInput || !generateBtn) {
+            console.error('AI Recipe Generator elements not found');
+            this.showToast('❌ Recipe generator is not available. Please refresh the page.');
             return;
         }
 
-        // Show loading state
+        const dietaryRestriction = document.getElementById('dietaryRestriction')?.value || 'none';
+        const complexityLevel = document.getElementById('complexityLevel')?.value || 'intermediate';
+        const servingSize = parseInt(document.getElementById('servingSize')?.value) || 4;
+
+        const query = searchInput.value.trim();
+        if (!query) {
+            this.showToast('🔍 Please enter a food description to generate a recipe!');
+            searchInput.focus();
+            return;
+        }
+
+        if (query.length < 3) {
+            this.showToast('📝 Please enter at least 3 characters for a better recipe!');
+            searchInput.focus();
+            return;
+        }
+
+        // Show loading state with better UX
         generateBtn.classList.add('loading');
         generateBtn.disabled = true;
+        this.showToast('🤖 AI is cooking up your custom recipe...');
 
         try {
-            // Simulate AI processing time
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // Simulate AI processing time with realistic delay
+            await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
 
             // Generate custom recipe
             const customRecipe = this.createCustomRecipe(query, dietaryRestriction, complexityLevel, servingSize);
             
-            // Add to recipes array
+            // Validate generated recipe
+            if (!customRecipe || !customRecipe.title) {
+                throw new Error('Failed to generate recipe');
+            }
+            
+            // Add to recipes array at the beginning
             this.recipes.unshift(customRecipe);
             
             // Refresh the display
             this.renderRecipes();
             
-            // Show the new recipe
-            this.showRecipe(customRecipe.id);
+            // Show success message
+            this.showToast(`🎉 Generated "${customRecipe.title}" successfully!`);
+            
+            // Show the new recipe after a brief delay
+            setTimeout(() => {
+                this.showRecipe(customRecipe.id);
+            }, 500);
             
             // Clear search input
             searchInput.value = '';
             
         } catch (error) {
             console.error('Error generating recipe:', error);
-            alert('Sorry, there was an error generating your recipe. Please try again.');
+            this.showToast('❌ Failed to generate recipe. Please try a different description!');
         } finally {
             // Hide loading state
             generateBtn.classList.remove('loading');
@@ -1192,20 +1294,44 @@ class DevChef {
             'encapsulation': 'contained ingredients'
         };
 
-        // Check for exact matches first
+        // Check for exact matches first (using Set to avoid duplicates)
+        const foundIngredients = new Set();
+        
         for (const [key, value] of Object.entries(ingredientMap)) {
             if (lowerQuery === key || lowerQuery.includes(key)) {
-                ingredients.push(value);
+                foundIngredients.add(value);
             }
         }
+        
+        // Convert Set back to array
+        ingredients.push(...foundIngredients);
 
-        // If still no ingredients found, try to create a recipe around the main word
+        // If still no ingredients found, try to create a recipe around the main words
         if (ingredients.length === 0) {
-            // Extract the main word from the query
-            const words = lowerQuery.split(' ').filter(word => word.length > 2);
+            // Extract meaningful words from the query
+            const words = lowerQuery.split(' ').filter(word => 
+                word.length > 2 && 
+                !['the', 'and', 'for', 'with', 'from', 'very', 'really', 'good', 'best', 'easy', 'quick', 'simple', 'delicious'].includes(word)
+            );
+            
             if (words.length > 0) {
+                // Use the first meaningful word as the main ingredient
                 const mainIngredient = words[0];
                 ingredients.push(mainIngredient);
+                
+                // Try to add complementary ingredients based on common patterns
+                if (words.includes('salad')) {
+                    ingredients.push('mixed greens', 'cherry tomatoes', 'cucumber');
+                } else if (words.includes('stir') || words.includes('fry')) {
+                    ingredients.push('mixed vegetables', 'soy sauce', 'garlic');
+                } else if (words.includes('soup')) {
+                    ingredients.push('vegetable broth', 'onion', 'celery');
+                } else if (words.includes('sandwich') || words.includes('burger')) {
+                    ingredients.push('bread', 'lettuce', 'tomato');
+                }
+            } else {
+                // Fallback to a basic recipe
+                ingredients.push('mixed vegetables', 'protein of choice');
             }
         }
 
@@ -1224,7 +1350,11 @@ class DevChef {
     }
 
     generateRecipeTitle(query, foodType) {
-        const adjectives = ['Delicious', 'Amazing', 'Perfect', 'Healthy', 'Flavorful', 'Nutritious'];
+        const adjectives = [
+            'Delicious', 'Amazing', 'Perfect', 'Healthy', 'Flavorful', 'Nutritious',
+            'Developer\'s', 'Coder\'s', 'Productive', 'Energy-Boosting', 'Brain-Fueling',
+            'Quick & Easy', 'Power-Packed', 'Focus-Enhancing', 'Coding-Fuel'
+        ];
         const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
         
         // Clean up the query and capitalize
@@ -1234,7 +1364,15 @@ class DevChef {
             word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
         );
         
-        return `${adjective} ${capitalizedWords.join(' ')}`;
+        // Add some variety to the title structure
+        const titleVariations = [
+            `${adjective} ${capitalizedWords.join(' ')}`,
+            `${capitalizedWords.join(' ')} - ${adjective} Recipe`,
+            `DevChef's ${capitalizedWords.join(' ')}`,
+            `${capitalizedWords.join(' ')} for Developers`,
+        ];
+        
+        return titleVariations[Math.floor(Math.random() * titleVariations.length)];
     }
 
     generateDescription(query, dietary, complexity) {

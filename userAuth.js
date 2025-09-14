@@ -392,12 +392,24 @@ class UserAuth {
 
         const stats = this.userStats[userId];
         stats.recipesCooked++;
-        stats.totalCookingTime += recipe.runtime || 15;
+        
+        // Parse runtime - handle both string ("30 min") and number formats
+        let cookingTime = 15; // default
+        if (recipe.runtime) {
+            if (typeof recipe.runtime === 'number') {
+                cookingTime = recipe.runtime;
+            } else if (typeof recipe.runtime === 'string') {
+                const match = recipe.runtime.match(/(\d+)/);
+                cookingTime = match ? parseInt(match[1]) : 15;
+            }
+        }
+        
+        stats.totalCookingTime += cookingTime;
         stats.cookingHistory.push({
-            recipeId: recipe.id,
+            recipeId: recipe.id || recipe.title,
             recipeName: recipe.title,
             cookedAt: new Date().toISOString(),
-            cookingTime: recipe.runtime || 15
+            cookingTime: cookingTime
         });
 
         // Update cooking level based on recipes cooked
@@ -413,7 +425,16 @@ class UserAuth {
         if (!this.currentUser) return false;
 
         const userId = this.currentUser.id;
-        if (!this.userStats[userId]) return false;
+        if (!this.userStats[userId]) {
+            this.userStats[userId] = {
+                recipesCooked: 0,
+                totalCookingTime: 0,
+                favoriteRecipes: [],
+                cookingLevel: 'Beginner',
+                achievements: [],
+                cookingHistory: []
+            };
+        }
 
         const stats = this.userStats[userId];
         const recipeId = recipe.id || recipe.title;
@@ -441,7 +462,17 @@ class UserAuth {
         if (!this.currentUser) return false;
 
         const userId = this.currentUser.id;
-        if (!this.userStats[userId]) return false;
+        if (!this.userStats[userId]) {
+            this.userStats[userId] = {
+                recipesCooked: 0,
+                totalCookingTime: 0,
+                favoriteRecipes: [],
+                cookingLevel: 'Beginner',
+                achievements: [],
+                cookingHistory: []
+            };
+            return false;
+        }
 
         const stats = this.userStats[userId];
         const recipeId = recipe.id || recipe.title;

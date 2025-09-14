@@ -1,4 +1,6 @@
-# Operating System Files
+# DevChef - .gitignore
+
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -7,7 +9,7 @@
 ehthumbs.db
 Thumbs.db
 
-# IDE and Editor Files
+# IDE and Editor files
 .vscode/
 .idea/
 *.swp
@@ -20,16 +22,34 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Dependencies (if you add any in the future)
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
 node_modules/
-npm-debug.log
+
+# Optional npm cache directory
 .npm
 
-# Build files (if you add build process)
-dist/
-build/
+# Optional REPL history
+.node_repl_history
 
-# Environment variables
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
 .env
 .env.local
 .env.development.local
@@ -39,7 +59,9 @@ build/
 # Temporary files
 *.tmp
 *.temp
-.cache/
 
-# Browser stuff
-.eslintcache
+# Test files (if you add any)
+test/
+tests/
+spec/
+specs/
