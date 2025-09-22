@@ -1,26 +1,25 @@
-# DevChef - .gitignore
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Build outputs
+out/
+*.vsix
 
-# IDE and Editor files
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
+
+# OS files
+.DS_Store
+Thumbs.db
 
 # Logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # Runtime data
 pids
@@ -35,7 +34,7 @@ coverage/
 .nyc_output
 
 # Dependency directories
-node_modules/
+jspm_packages/
 
 # Optional npm cache directory
 .npm
@@ -51,17 +50,7 @@ node_modules/
 
 # dotenv environment variables file
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
-# Temporary files
-*.tmp
-*.temp
-
-# Test files (if you add any)
-test/
-tests/
-spec/
-specs/
+# Temporary folders
+tmp/
+temp/

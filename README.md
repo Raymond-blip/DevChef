@@ -1,11 +1,13 @@
 # 🍳 DevChef - AI-Powered Recipe Generator
 
-A modern, interactive web application that combines traditional cooking with AI-powered recipe generation. Perfect for developers who love to cook!
+A modern, interactive web application **AND VS Code Extension** that combines traditional cooking with AI-powered recipe generation. Perfect for developers who love to cook!
 
-![DevChef Preview](https://img.shields.io/badge/Status-Live-brightgreen)
+[![VS Code Extension](https://img.shields.io/badge/VS%20Code-Extension-blue?logo=visualstudiocode)](https://marketplace.visualstudio.com/items?itemName=devchef.devchef)
+[![Web App](https://img.shields.io/badge/Web-App-green)](https://raymond-blip.github.io/devchef)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)
 
 ## ✨ Features
 
@@ -36,15 +38,17 @@ A modern, interactive web application that combines traditional cooking with AI-
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 🌐 Web Application
+
+#### Prerequisites
 - A modern web browser (Chrome, Firefox, Safari, Edge)
 - No additional software required!
 
-### Installation
+#### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/devchef.git
+   git clone https://github.com/Raymond-blip/devchef.git
    cd devchef
    ```
 
@@ -59,6 +63,27 @@ A modern, interactive web application that combines traditional cooking with AI-
    - Create an account or use the demo account: `demo@devchef.com` / `demo123`
    - Browse recipes or generate new ones with AI
    - Track your cooking progress and build your recipe collection
+
+### 🔌 VS Code Extension
+
+#### Installation
+1. **Open VS Code**
+2. **Go to Extensions** (`Ctrl+Shift+X`)
+3. **Search for "DevChef"**
+4. **Click Install**
+
+#### Usage
+- **Command Palette**: `Ctrl+Shift+P` → "DevChef: Open DevChef"
+- **Status Bar**: Click "❤️ DevChef" in bottom-right corner
+- **Quick Timer**: `Ctrl+Shift+P` → "DevChef: Open Cooking Timer"
+- **AI Recipe**: `Ctrl+Shift+P` → "DevChef: Generate AI Recipe"
+
+#### Features
+- ✅ **Seamless Integration**: Your cooking companion right inside VS Code
+- ✅ **Smart Timer**: Auto-sets cooking time when clicking recipes
+- ✅ **VS Code Notifications**: Timer completion alerts
+- ✅ **Command Palette**: Quick access to all features
+- ✅ **Tree View**: Browse recipes in Explorer sidebar
 
 ## 🎯 How to Use
 
@@ -84,18 +109,42 @@ A modern, interactive web application that combines traditional cooking with AI-
 
 ### Architecture
 - **Frontend**: Pure HTML5, CSS3, and Vanilla JavaScript
+- **VS Code Extension**: TypeScript with VS Code Extension API
 - **Storage**: Local Storage for user data and preferences
 - **AI Simulation**: Realistic AI processing simulation with delays
 - **Responsive**: Mobile-first design with CSS Grid and Flexbox
 
+### VS Code Extension Structure
+```
+src/
+├── extension.ts          # Main extension entry point
+├── devchefPanel.ts       # Main DevChef webview panel
+├── timerPanel.ts         # Cooking timer panel
+└── recipeProvider.ts     # Recipe tree view provider
+
+out/                      # Compiled JavaScript files
+├── extension.js
+├── devchefPanel.js
+├── timerPanel.js
+└── recipeProvider.js
+```
+
 ### File Structure
 ```
 devchef/
-├── index.html          # Main application file
+├── index.html          # Main web application file
 ├── styles.css          # All styling and animations
 ├── script.js           # Core application logic
 ├── userAuth.js         # Authentication system
 ├── recipes.js          # Recipe database and management
+├── package.json        # Extension configuration
+├── tsconfig.json       # TypeScript configuration
+├── src/                # VS Code extension source
+│   ├── extension.ts    # Main extension entry point
+│   ├── devchefPanel.ts # Main DevChef panel
+│   ├── timerPanel.ts   # Cooking timer panel
+│   └── recipeProvider.ts # Recipe tree view
+├── out/                # Compiled extension files
 ├── README.md           # This file
 └── .gitignore          # Git ignore rules
 ```
@@ -107,6 +156,47 @@ devchef/
 - **AI Generator**: Simulated AI recipe creation
 - **Timer System**: Cooking time management
 - **Progress Tracking**: User statistics and achievements
+
+## 🛠️ Development
+
+### Building the VS Code Extension
+
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Compile TypeScript**
+   ```bash
+   npm run compile
+   ```
+
+3. **Package extension**
+   ```bash
+   npm run package
+   ```
+
+4. **Install locally**
+   ```bash
+   code --install-extension devchef-1.0.0.vsix
+   ```
+
+### Publishing to Marketplace
+
+1. **Install VSCE**
+   ```bash
+   npm install -g @vscode/vsce
+   ```
+
+2. **Login to publisher account**
+   ```bash
+   vsce login your-publisher-name
+   ```
+
+3. **Publish extension**
+   ```bash
+   vsce publish
+   ```
 
 ## 🎨 Customization
 

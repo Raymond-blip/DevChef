@@ -16,6 +16,7 @@ class UserAuth {
     }
 
     // Create demo account if it doesn't exist
+
     createDemoAccount() {
         const demoEmail = 'demo@devchef.com';
         if (!this.userDatabase[demoEmail]) {
