@@ -257,9 +257,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/devchef/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/devchef/discussions)
-- **Email**: your-email@example.com
+- **Issues**: [GitHub Issues](https://github.com/Raymond-blip/devchef/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Raymond-blip/devchef/discussions)
+- **Email**: omoteloyeoluwanifemi@gmail.com
 
 ## 🎉 Features Roadmap
 
